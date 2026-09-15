@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mass Bunking Calculator 🎒 | The Art of Strategic Absenteeism</title>
+  <meta name="description" content="A playful, high-stakes attendance calculator for college students. Find out how many classes you can skip before your HOD calls your parents.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Bungee&family=Fredoka:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Canvas for Celebration Confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Noise / Paper Texture Overlay -->
+  <div class="paper-texture"></div>
+
+  <div class="page-wrapper">
+    <!-- Top Bar with Quirky Stickers & Audio Toggle -->
+    <header class="top-nav">
+      <div class="sticker-tag tape-effect tape-left">
+        <span>COLLEGE SURVIVAL KIT v2.4</span>
+      </div>
+      
+      <div class="top-controls">
+        <button id="sound-toggle-btn" class="pill-btn sound-btn" title="Toggle retro click sounds" aria-label="Toggle retro click sounds">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-label">Bleeps: ON</span>
+        </button>
+        <div class="sticker-badge badge-red rotate-clockwise">
+          <span>⚠️ 75% POLICE</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="calculator-container">
+      
+      <!-- Hero Title Section -->
+      <section class="hero-section">
+        <div class="hero-doodle-left">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 36C12 30 18 38 24 32C30 26 36 34 42 28" stroke="#18181B" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M38 12C36 18 42 22 40 28" stroke="#FF5733" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="4" fill="#FFD12E" stroke="#18181B" stroke-width="2.5"/>
+          </svg>
+        </div>
+
+        <div class="title-cluster">
+          <div class="mini-kicker handwritten">★ Department of Strategic Absenteeism ★</div>
+          <h1 class="main-heading">
+            MASS BUNKING <span class="highlight-stamp">CALCULATOR</span>
+          </h1>
+          <p class="sub-heading">
+            Mathematically derive how much you can slack off without your HOD sending an emergency letter home.
+          </p>
+        </div>
+
+        <div class="hero-doodle-right">
+          <div class="sticker-badge badge-yellow rotate-counter">
+            <span>☕ 100% PROVEN</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grid: Left is Input Station, Right is The Damage Report -->
+      <div class="calc-layout">
+        
+        <!-- Left: Tactile Input Station -->
+        <section class="input-card card-wobble-1" aria-labelledby="input-heading">
+          <div class="tape-strip tape-center"></div>
+          
+          <div class="card-header">
+            <span class="card-num-stamp">STEP 1</span>
+            <h2 id="input-heading" class="card-title">Confess Your Numbers</h2>
+          </div>
+
+          <div class="inputs-stack">
+            <!-- Attended Classes Field -->
+            <div class="input-group" id="group-attended">
+              <div class="label-row">
+                <label for="input-attended" class="field-label">
+                  Classes Attended
+                  <span class="label-hint">(Even if you were half-asleep)</span>
+                </label>
+                <span class="doodle-note handwritten">physically present!</span>
+              </div>
+              
+              <div class="stepper-box">
+                <button type="button" class="stepper-btn btn-minus" data-target="input-attended" data-step="-1" aria-label="Decrease attended classes">−</button>
+                <input 
+                  type="number" 
+                  id="input-attended" 
+                  name="attended" 
+                  class="stepper-input" 
+                  value="40" 
+                  min="0" 
+                  max="500" 
+                  step="1"
+                  required
+                >
+                <button type="button" class="stepper-btn btn-plus" data-target="input-attended" data-step="1" aria-label="Increase attended classes">+</button>
+              </div>
+
+              <div class="quick-chip-row">
+                <span class="quick-label">Quick bump:</span>
+                <button type="button" class="quick-chip" data-target="input-attended" data-add="1">+1</button>
+                <button type="button" class="quick-chip" data-target="input-attended" data-add="5">+5</button>
+                <button type="button" class="quick-chip" data-target="input-attended" data-add="10">+10</button>
+              </div>
+            </div>
+
+            <!-- Total Classes Field -->
+            <div class="input-group" id="group-total">
+              <div class="label-row">
+                <label for="input-total" class="field-label">
+                  Total Classes Held
+                  <span class="label-hint">(The denominator of doom)</span>
+                </label>
+                <span class="doodle-note handwritten">total bells rung</span>
+              </div>
+              
+              <div class="stepper-box">
+                <button type="button" class="stepper-btn btn-minus" data-target="input-total" data-step="-1" aria-label="Decrease total classes">−</button>
+                <input 
+                  type="number" 
+                  id="input-total" 
+                  name="total" 
+                  class="stepper-input" 
+                  value="50" 
+                  min="1" 
+                  max="500" 
+                  step="1"
+                  required
+                >
+                <button type="button" class="stepper-btn btn-plus" data-target="input-total" data-step="1" aria-label="Increase total classes">+</button>
+              </div>
+
+              <div class="quick-chip-row">
+                <span class="quick-label">Quick bump:</span>
+                <button type="button" class="quick-chip" data-target="input-total" data-add="1">+1</button>
+                <button type="button" class="quick-chip" data-target="input-total" data-add="5">+5</button>
+                <button type="button" class="quick-chip" data-target="input-total" data-add="10">+10</button>
+              </div>
+            </div>
+
+            <!-- Target Attendance Percentage Field -->
+            <div class="input-group" id="group-target">
+              <div class="label-row">
+                <label for="input-target" class="field-label">
+                  Target Attendance %
+                  <span class="label-hint">(College minimum mandate)</span>
+                </label>
+                <span class="target-val-display" id="target-val-badge">75%</span>
+              </div>
+
+              <div class="target-presets">
+                <button type="button" class="preset-pill" data-target-val="65">65% (YOLO)</button>
+                <button type="button" class="preset-pill active" data-target-val="75">75% (The Classic)</button>
+                <button type="button" class="preset-pill" data-target-val="80">80% (Safe Guy)</button>
+                <button type="button" class="preset-pill" data-target-val="85">85% (Scholar)</button>
+              </div>
+
+              <div class="slider-wrapper">
+                <input 
+                  type="range" 
+                  id="input-target-slider" 
+                  min="50" 
+                  max="95" 
+                  value="75" 
+                  class="custom-slider"
+                  aria-label="Target Attendance Percentage Slider"
+                >
+                <div class="slider-markers">
+                  <span>50%</span>
+                  <span>65%</span>
+                  <span class="marker-highlight">75%</span>
+                  <span>85%</span>
+                  <span>95%</span>
+                </div>
+              </div>
+              <input type="hidden" id="input-target" value="75">
+            </div>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div id="error-banner" class="error-banner hidden" role="alert">
+            <span class="error-icon">🤦‍♂️</span>
+            <span id="error-message" class="error-text">Attended classes cannot exceed total classes!</span>
+          </div>
+
+          <!-- Live Network Indicator -->
+          <div class="network-badge">
+            <span class="status-dot"></span>
+            <span id="api-status-text">Live recalculating...</span>
+          </div>
+        </section>
+
+        <!-- Right: The Damage Report (Dynamic Result Card) -->
+        <section class="result-station" aria-labelledby="result-heading">
+          
+          <!-- Sticky Note Doodles -->
+          <div class="sticky-note card-wobble-3">
+            <div class="pin">📌</div>
+            <p class="handwritten sticky-text" id="random-tip-text">
+              "Sleeping in the 4th row with a pencil in your hand is an art form."
+            </p>
+          </div>
+
+          <!-- Main Status Card -->
+          <div id="result-card" class="result-card card-wobble-2 status-yellow" tabindex="0">
+            <div class="card-status-strip">
+              <span id="status-pill" class="status-badge">🟡 WALKING THE TIGHTROPE</span>
+              <span id="percentage-badge" class="stats-badge">Current: 80.0%</span>
+            </div>
+
+            <div class="result-content-wrap">
+              <div class="bunk-number-box">
+                <span class="bunk-kicker">You can safely bunk</span>
+                <div class="big-number-row">
+                  <span id="bunk-count" class="big-number">3</span>
+                  <span class="classes-label">CLASSES</span>
+                </div>
+              </div>
+
+              <!-- Animated Reaction Stamp -->
+              <div id="reaction-stamp" class="reaction-stamp">
+                <span id="reaction-emoji" class="stamp-emoji">🎲</span>
+                <span id="reaction-title" class="stamp-text">RISK TAKER</span>
+              </div>
+            </div>
+
+            <!-- Funny College Punchline -->
+            <div class="punchline-box">
+              <p id="punchline-text" class="punchline">
+                You're in the safe pocket, but don't get cocky. One surprise mass bunk and you're in the dean's office.
+              </p>
+            </div>
+
+            <!-- Visual Attendance Meter -->
+            <div class="attendance-meter-wrap">
+              <div class="meter-label-row">
+                <span>Attendance Threshold</span>
+                <span id="meter-ratio">40 / 50 attended</span>
+              </div>
+              <div class="meter-track">
+                <div id="meter-fill" class="meter-fill" style="width: 80%;"></div>
+                <div id="meter-target-line" class="meter-target-line" style="left: 75%;" title="Target: 75%">
+                  <span class="target-flag">GOAL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Scenario Simulations / What-ifs -->
+            <div class="scenario-tray">
+              <span class="scenario-title">⚡ WHAT-IF SIMULATOR:</span>
+              <div class="scenario-buttons">
+                <button type="button" class="scenario-btn" id="sim-bunk-next" title="What if you bunk next class?">
+                  🛌 Bunk Next Class
+                </button>
+                <button type="button" class="scenario-btn" id="sim-attend-next" title="What if you attend next class?">
+                  🙋 Show Up Next Class
+                </button>
+                <button type="button" class="scenario-btn" id="sim-reset" title="Reset to base numbers">
+                  🔄 Reset
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Extra Fun Fact Comic Strip -->
+          <div class="comic-fact-box">
+            <div class="speech-bubble">
+              <span class="bubble-tag handwritten">HOD says:</span>
+              <span id="hod-quote" class="bubble-text">"Attendance isn't just a number, it's... wait, actually it is just a number."</span>
+            </div>
+            <div class="proctor-avatar">👨‍🏫</div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-inner">
+        <p class="credit-line">
+          logic + math by <span class="author-name">Arpit</span> · pixels summoned by a robot <span class="subtle-spark" title="Hand-crafted with neural electricity">✦</span>
+        </p>
+        <p class="disclaimer-line">
+          *Not officially affiliated with any university or angry attendance committee. Bunk at your own peril.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
