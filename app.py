@@ -20,6 +20,15 @@ def calculate():
     attended = data['attended']
     total = data['total']
     target = data['target']
+
+    if total <= 0:
+        return jsonify({"error": "Total classes must be greater than 0"}), 400
+    
+    if attended < 0 or attended > total:
+        return jsonify({"error": "Attended classes must be between 0 and total classes"}), 400
+    
+    if target < 0 or target > 100:
+        return jsonify({"error": "Target attendance must be between 0 and 100"}), 400
     
     n = calculate_bunkable(attended, total, target)
     status = get_status(attended, total, target)
